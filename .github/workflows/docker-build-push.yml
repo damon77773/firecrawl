@@ -16,12 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -32,7 +26,6 @@ jobs:
           file: ./apps/api/Dockerfile
           push: true
           tags: |
-            firecrawl/api:latest
             ghcr.io/${{ github.repository }}/api:latest
 
   build-and-push-playwright-service:
@@ -40,12 +33,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -57,5 +44,4 @@ jobs:
           file: ./apps/playwright-service-ts/Dockerfile
           push: true
           tags: |
-            firecrawl/playwright-service-ts:latest
             ghcr.io/${{ github.repository }}/playwright-service-ts:latest
